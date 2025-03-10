@@ -1,0 +1,24 @@
+syntax = "proto3";
+option go_package = "github.com/franveiga/MalatoMQ/protos";
+package protos;
+import "google/protobuf/timestamp.proto";
+
+service MQ {
+    rpc SendMessage (stream Message) returns (Response) {}
+    rpc ConsumeMessage (QueueName) returns (stream Message) {}
+}
+
+message Message {
+    google.protobuf.Timestamp timestamp = 1;
+    string queue = 2;
+    string content = 3;
+}
+
+message QueueName {
+    string name = 1;
+}
+
+message Response {
+    bool ok = 1;
+}
+
