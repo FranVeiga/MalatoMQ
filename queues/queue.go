@@ -6,7 +6,7 @@ import (
 
 type Queue interface {
 	QueueMessage(item QItem) error
-	SendMessage(stream pb.MQ_ConsumeMessageServer) error
+    SendMessage(stream chan *pb.Message) error
 	GetName() string
 	GetQueue() []QItem
 }

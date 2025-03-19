@@ -62,7 +62,20 @@ func (s *MQServer) ConsumeMessage(queueName *pb.QueueName, stream pb.MQ_ConsumeM
 	if err != nil {
 		return err
 	}
-	err = queue.SendMessage(stream)
+    
+    msg_chan := make(chan *pb.Message)
+
+	go queue.SendMessage(msg_chan)
+
+    for {
+        msg, more := <- msg_chan
+        if more {
+            stream.Send(msg)
+        } else {
+            break
+        }
+    }
+
 	if err != nil {
 		log.Fatalf("Failed sending message to consumer: %v", err)
 	}

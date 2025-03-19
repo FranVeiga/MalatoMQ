@@ -18,10 +18,11 @@ func (wq *WorkQueue) QueueMessage(item QItem) error {
 	return nil
 }
 
-func (wq *WorkQueue) SendMessage(stream pb.MQ_ConsumeMessageServer) error {
+func (wq *WorkQueue) SendMessage(stream chan *pb.Message) error {
 	msg := wq.Dequeue().ToGRPCMessage()
-	err := stream.Send(&msg)
-	return err
+	stream<-&msg
+    close(stream) // Message queues only send one message
+	return nil
 }
 
 func (wq *WorkQueue) GetName() string {

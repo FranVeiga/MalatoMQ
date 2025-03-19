@@ -26,7 +26,7 @@ func main() {
 	server := grpc.NewServer()
 
 	queuesList := make([]queues.Queue, 0)
-	wq := queues.NewWorkQueue("work_queue1")
+	wq := queues.NewWorkQueue("test")
 	queuesList = append(queuesList, &wq)
 
 	msgQueueServer := newMQServer(queuesList)
