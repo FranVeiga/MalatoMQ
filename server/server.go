@@ -25,7 +25,7 @@ func main() {
 
 	server := grpc.NewServer()
 
-	queuesList := make([]queues.Queue, 0)
+	queuesList := make([]queues.ServerQueue, 0)
 	wq := queues.NewWorkQueue("test")
 	queuesList = append(queuesList, &wq)
 

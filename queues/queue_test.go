@@ -6,7 +6,7 @@ import (
 )
 
 func TestQueueing(t *testing.T) {
-	queue := newGenericQueue("test_queue")
+	queue := newQueue("test_queue")
 
 	queue.Queue(NewQItem("foo"))
 	queue.Queue(NewQItem("bar"))
@@ -20,7 +20,7 @@ func TestQueueing(t *testing.T) {
 
 func TestDequeueing(t *testing.T) {
 
-	queue := newGenericQueue("test_queue")
+	queue := newQueue("test_queue")
 
 	msgs := [6]string{"foo", "bar", "baz", "test1", "test2", "test3"}
 	for _, msg := range msgs {
@@ -36,7 +36,7 @@ func TestDequeueing(t *testing.T) {
 }
 
 func TestDequeueBlocking(t *testing.T) {
-	queue := newGenericQueue("test_queue")
+	queue := newQueue("test_queue")
 	// var wg sync.WaitGroup
 
 	go func() {

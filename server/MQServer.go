@@ -18,10 +18,10 @@ type MQServer struct {
 	msgQueue  []QItem
 	mu        sync.Mutex
 	available chan bool
-	queues    []queues.Queue
+	queues    []queues.ServerQueue
 }
 
-func newMQServer(queuesList []queues.Queue) MQServer {
+func newMQServer(queuesList []queues.ServerQueue) MQServer {
 	return MQServer{
 		msgQueue:  make([]QItem, 1),
 		available: make(chan bool, 100000), // buffer up to 100000
@@ -96,7 +96,7 @@ func (s *MQServer) ConsumeMessage(queueName *pb.QueueName, stream pb.MQ_ConsumeM
 // 	return item
 // }
 
-func (s *MQServer) findQueue(name string) (queues.Queue, error) {
+func (s *MQServer) findQueue(name string) (queues.ServerQueue, error) {
 	for _, q := range s.queues {
 		if q.GetName() == name {
 			return q, nil

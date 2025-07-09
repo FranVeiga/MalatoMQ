@@ -5,12 +5,12 @@ import (
 )
 
 type WorkQueue struct {
-	genericQueue
+	queue
 	// TODO: consider adding a queue of waiters to respect FIFO on multiple consumers
 }
 
 func NewWorkQueue(name string) WorkQueue {
-	return WorkQueue{genericQueue: newGenericQueue(name)}
+	return WorkQueue{queue: newQueue(name)}
 }
 
 func (wq *WorkQueue) QueueMessage(item QItem) error {
